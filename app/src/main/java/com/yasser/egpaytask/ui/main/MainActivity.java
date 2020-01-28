@@ -19,12 +19,6 @@ public class MainActivity extends AppCompatActivity implements UserView {
 
 
 
-
-
-        Toast.makeText(this,
-                userPresenter.sendUser(), Toast.LENGTH_LONG).show();
-
-
     }
 
 

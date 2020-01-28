@@ -115,18 +115,26 @@ public class UserPresenter {
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage(sendUser(id,name,required,type,defultValue,multiple,sort))
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                getValuesFromComponents();
+                getValuesFromComponents();
+                if (required.equals("no Value")) {
+                    Toast.makeText(mContext, "Please Select Value", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    String ResponseMessage= sendUser(id,name,required,type,defultValue,multiple,sort);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage(ResponseMessage)
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
 
 
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+
             }
         });
 
@@ -140,7 +148,6 @@ public class UserPresenter {
                     Toast.makeText(mContext, "Optional", Toast.LENGTH_SHORT).show();
                 }else
                 {
-                    Toast.makeText(mContext, "Please Select Value", Toast.LENGTH_SHORT).show();
                     spinnerValue = "no value";
                 }
             }
@@ -148,6 +155,7 @@ public class UserPresenter {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(mContext, "Please Select Value From Spinner", Toast.LENGTH_SHORT).show();
+                spinnerValue = "no value";
             }
         });
 
@@ -175,6 +183,7 @@ public class UserPresenter {
         type =  ed_type.getText().toString();
 
         required =  spinnerValue;
+
 
         sort =  ed_sort.getText().toString();
 
